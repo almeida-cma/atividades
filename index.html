@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Envio de Resultados - Atividades</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f5fe 0%, #e9f0fa 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* container principal com card */
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(0px);
+            border-radius: 2rem;
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 8px 18px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        /* cabeçalho */
+        .hero {
+            background: linear-gradient(135deg, #1a2a3f 0%, #0f1a28 100%);
+            padding: 2rem 2rem 1.8rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero h1 span {
+            background: #ffcd3c;
+            padding: 0 10px;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            color: #1f2e3f;
+        }
+
+        .hero p {
+            margin-top: 0.75rem;
+            opacity: 0.85;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .aviso {
+            background: #fff8e7;
+            border-left: 6px solid #f5a623;
+            padding: 0.9rem 1.5rem;
+            margin: 1.2rem 1.8rem 0 1.8rem;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-weight: 500;
+            color: #7a5c00;
+            font-size: 0.9rem;
+        }
+
+        .aviso i {
+            font-size: 1.3rem;
+        }
+
+        /* grade de atividades */
+        .activities-grid {
+            padding: 2rem 2rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 1.8rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #eef2f8;
+            overflow: hidden;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.12);
+            border-color: #cddfee;
+        }
+
+        .card-header {
+            padding: 1.2rem 1.8rem;
+            background: #fbfdff;
+            border-bottom: 2px solid #edf2f7;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .emoji-badge {
+            font-size: 2.1rem;
+            line-height: 1;
+        }
+
+        .title-section {
+            flex: 1;
+        }
+
+        .title-section h2 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #1a2c3e;
+            letter-spacing: -0.2px;
+        }
+
+        .sub {
+            font-size: 0.8rem;
+            background: #eef3fc;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            color: #2c6280;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .card-body {
+            padding: 1.5rem 1.8rem 1.8rem;
+        }
+
+        .descricao {
+            font-size: 1rem;
+            color: #2c3e44;
+            line-height: 1.45;
+            margin-bottom: 1.4rem;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .descricao strong {
+            font-weight: 600;
+            color: #004070;
+        }
+
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #1e4663;
+            color: white;
+            padding: 0.8rem 1.6rem;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .btn-link:hover {
+            background: #0f2f48;
+            transform: scale(1.01);
+            gap: 14px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-link i {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+
+        /* rodapé com formulário */
+        .form-section {
+            background: #f8fafd;
+            border-top: 1px solid #e2edf7;
+            padding: 1.8rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .form-section h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0f2b38;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .form-section p {
+            color: #2c576b;
+            margin-bottom: 1.4rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-form {
+            background: linear-gradient(95deg, #2b7a4b, #1e5a3a);
+            padding: 0.9rem 2.2rem;
+            font-size: 1.15rem;
+            border-radius: 60px;
+            box-shadow: 0 5px 12px rgba(33, 102, 70, 0.3);
+            transition: all 0.2s;
+        }
+
+        .btn-form:hover {
+            background: linear-gradient(95deg, #216d43, #154f32);
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(33, 102, 70, 0.4);
+        }
+
+        .obs {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            background: #ecf3e9;
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            color: #2d5a3b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 0.75rem;
+            color: #7c8f9c;
+            background: #ffffffd0;
+            border-top: 1px solid #e9edf2;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 1rem;
+            }
+            .hero h1 {
+                font-size: 1.45rem;
+            }
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .title-section h2 {
+                font-size: 1.3rem;
+            }
+            .btn-link {
+                width: 100%;
+                justify-content: center;
+            }
+            .activities-grid {
+                padding: 1.2rem;
+            }
+            .form-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="main-card">
+        <div class="hero">
+            <h1>
+                📬 Envio de Resultados
+                <span>print / PDF</span>
+            </h1>
+            <p>Finalize suas atividades, registre seus resultados e confirme a entrega oficial</p>
+        </div>
+
+        <div class="aviso">
+            <span>📌</span> 
+            <span>Após realizar cada simulado/treino, tire print da tela final ou gere PDF do resultado. Ao final, preencha o formulário obrigatório com os anexos.</span>
+        </div>
+
+        <div class="activities-grid">
+            <!-- ATIVIDADE 1 - SIMULADO DE AVALIAÇÃO -->
+            <div class="activity-card">
+                <div class="card-header">
+                    <div class="emoji-badge">📝✅</div>
+                    <div class="title-section">
+                        <h2>Simulado de avaliação</h2>
+                        <div class="sub">🎯 teste seus conhecimentos</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="descricao">
+                        <strong>Simulado completo</strong> para medir seu desempenho e identificar pontos de melhoria.
+                    </div>
+                    <a href="https://almeida-cma.github.io/APS_AV/avaliacao.html" target="_blank" rel="noopener noreferrer" class="btn-link">
+                        🔗 Iniciar simulado 
+                        <span style="font-size:1.1rem;">→</span>
+                    </a>
+                    <div style="margin-top: 12px; font-size: 0.75rem; color: #4f6f8f;">
+                        ✅ Ao terminar, capture a tela de resultados (print) ou exporte como PDF.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ATIVIDADE 2 - QUESTÕES CHAVE PARA TREINO -->
+            <div class="activity-card">
+                <div class="card-header">
+                    <div class="emoji-badge">⚡🧩</div>
+                    <div class="title-section">
+                        <h2>Questões chave para treino</h2>
+                        <div class="sub">🏋️ treino intensivo</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="descricao">
+                        <strong>Banco de questões‑chave</strong> para praticar de forma dinâmica e acelerar seu raciocínio.
+                    </div>
+                    <a href="https://almeida-cma.github.io/APS_AV/chave.html" target="_blank" rel="noopener noreferrer" class="btn-link">
+                        🔗 Treinar agora 
+                        <span style="font-size:1.1rem;">→</span>
+                    </a>
+                    <div style="margin-top: 12px; font-size: 0.75rem; color: #4f6f8f;">
+                        📸 Após o treino, registre o desempenho com print ou PDF.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE ENVIO OFICIAL (FORMULÁRIO OBRIGATÓRIO) -->
+        <div class="form-section">
+            <h3>
+                📬 Envio oficial do trabalho
+            </h3>
+            <p>
+                — Após colocar os arquivos no repositório, preencha o formulário obrigatório:
+            </p>
+            <a href="https://forms.gle/T9QSe3PyEpru3t538" target="_blank" rel="noopener noreferrer" class="btn-link btn-form">
+                ✨ Acessar Formulário de Entrega ✨
+            </a>
+            <div class="obs">
+                ⚠️ O formulário é obrigatório para validação da atividade. Anexe prints/PDFs solicitados.
+            </div>
+        </div>
+        <footer>
+            🔒 Certifique-se de que todos os resultados estão salvos antes de enviar • Dúvidas, consulte seu professor
+        </footer>
+    </div>
+</div>
+</body>
+</html>
